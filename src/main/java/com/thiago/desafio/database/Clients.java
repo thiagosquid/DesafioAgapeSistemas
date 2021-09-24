@@ -1,10 +1,16 @@
 package com.thiago.desafio.database;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Clients implements Serializable{
@@ -12,24 +18,56 @@ public class Clients implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=40, message="Excedeu o número de caracteres")
     private String name;
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=14)
     private String CPF;
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=17)
     private String RG;
     private String birthdate; //verificar se é esse tipo mesmo
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=40, message="Excedeu o número de caracteres")
     private String address;
+    
+    @Length(max=20, message="Excedeu o número de caracteres")
     private String complement;
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=20, message="Excedeu o número de caracteres")
     private String district;
-    private int CEP; // possibilidade mudar para String
+    
+    @Max(value=99999999)
+    private Integer CEP; // possibilidade mudar para String
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=20, message="Excedeu o número de caracteres")
     private String city;
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(min=2, max=2, message="Excedeu o número de caracteres")
     private String UF;
+    
+    @Column(nullable = true)
+    @Length(max=13, message="Excedeu o número de caracteres")
     private String phone;
+    
+    @NotEmpty(message = "Campo obrigatorio")
+    @Length(max=15, message="Excedeu o número de caracteres")
     private String cellphone;
+    
+    @Length(max=150, message="Excedeu o número de caracteres")
     private String observation;
 
     public Clients() {
     }
 
-    public Clients(Integer code, String name, String CPF, String RG, String birthdate, String address, String complement, String district, int CEP, String city, String UF, String phone, String cellphone, String observation) {
+    public Clients(Integer code, String name, String CPF, String RG, String birthdate, String address, String complement, String district, Integer CEP, String city, String UF, String phone, String cellphone, String observation) {
         this.id = id;
         this.name = name;
         this.CPF = CPF;
@@ -111,11 +149,11 @@ public class Clients implements Serializable{
         this.district = district;
     }
 
-    public int getCEP() {
+    public Integer getCEP() {
         return CEP;
     }
 
-    public void setCEP(int CEP) {
+    public void setCEP(Integer CEP) {
         this.CEP = CEP;
     }
 

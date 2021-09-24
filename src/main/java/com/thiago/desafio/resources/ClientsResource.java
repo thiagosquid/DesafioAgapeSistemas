@@ -7,6 +7,7 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -45,14 +46,14 @@ public class ClientsResource {
     }
     
     @PostMapping
-    public ResponseEntity<Clients> create(@RequestBody Clients obj){
+    public ResponseEntity<Clients> create(@Valid @RequestBody Clients obj){
         obj = service.create(obj);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
     
     @PutMapping(value = "/{id}")   
-    public ResponseEntity<Clients> update(@PathVariable Integer id, @RequestBody Clients obj){
+    public ResponseEntity<Clients> update(@PathVariable Integer id, @Valid @RequestBody Clients obj){
         Clients newClient = service.update(id, obj);
         return ResponseEntity.accepted().body(newClient);
     }
