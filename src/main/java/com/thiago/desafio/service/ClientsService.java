@@ -5,6 +5,8 @@ import com.thiago.desafio.repositories.ClientsRepository;
 import java.util.ArrayList;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -18,11 +20,11 @@ public class ClientsService {
         return obj.orElse(null);
     }
 
-    public ArrayList<Clients> findAll() {
-        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findAll();
+    public Page<Clients> findAll(Pageable pageable) {
+        Page<Clients> obj = repository.findAll(pageable);
         return obj;
     }
-    
+           
     public void delete(Integer id){
         findById(id);
         repository.deleteById(id);
@@ -67,7 +69,26 @@ public class ClientsService {
         ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameAndCpfFilter(idPart, namePart, cpf);
         return obj;
     }
-      
+    
+//    public ArrayList<Clients> findByAnyFilter(String idPart, String namePart, String cpfPart){
+//        String id = "";
+//        String name = "";
+//        String cpf = "";
+//        if(!idPart.equals("empty")){
+//            id = "CAST(c.id as string) like %" + idPart + "%";
+//        }
+//        
+//        if(!namePart.equals("empty")){
+//            name = "and LOWER(c.name) like %"+ namePart + "%";
+//        }
+//        
+//        if(!cpfPart.equals("empty")){
+//            cpf = "and c.CPF like %" + cpfPart + "%";
+//        }
+//        
+//        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByAnyFilter(id, name, cpf);
+//        return obj;
+//    }
        
     
 }
