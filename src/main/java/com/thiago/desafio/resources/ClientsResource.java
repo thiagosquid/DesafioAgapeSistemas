@@ -34,19 +34,13 @@ public class ClientsResource {
         Page<Clients> obj = service.findAll(pageable);
         return ResponseEntity.ok().body(Arrays.asList(obj));
     }
-    
-//    @GetMapping(value = "/pages/{limit}/{offset}")
-//    public ResponseEntity<List<ArrayList<Clients>>> findPages(@PathVariable Integer limit, @PathVariable Integer offset){
-//        ArrayList<Clients> obj = service.findPages(limit, offset);
-//        return ResponseEntity.ok().body(Arrays.asList(obj));
-//    }
-    
+       
     @GetMapping(value = "/{id}")
     public ResponseEntity<Clients> findById(@PathVariable Integer id){
         Clients obj = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
-        
+            
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id){
         service.delete(id);

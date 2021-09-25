@@ -3,10 +3,16 @@ package com.thiago.desafio.service;
 import com.thiago.desafio.database.Clients;
 import com.thiago.desafio.repositories.ClientsRepository;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Predicate;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,7 +30,7 @@ public class ClientsService {
         Page<Clients> obj = repository.findAll(pageable);
         return obj;
     }
-           
+               
     public void delete(Integer id){
         findById(id);
         repository.deleteById(id);
@@ -60,6 +66,16 @@ public class ClientsService {
         return obj;
     }
     
+    public List<Clients> findLike(String form){
+        return repository.findAll((Root<Clients> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
+            List<Predicate> predicates = new ArrayList<>();
+            if(form!=null){
+                predicates.add((Predicate) criteriaBuilder.like(root.get("name"), "%" + form + "%"));
+            }
+            return criteriaBuilder.and((javax.persistence.criteria.Predicate[]) predicates.toArray(new Predicate[predicates.size()]));
+        });
+    }
+    
     public ArrayList<Clients> findByIdAndNameFilter(Integer idPart, String namePart){
         ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameFilter(idPart, namePart);
         return obj;
@@ -69,26 +85,5 @@ public class ClientsService {
         ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameAndCpfFilter(idPart, namePart, cpf);
         return obj;
     }
-    
-//    public ArrayList<Clients> findByAnyFilter(String idPart, String namePart, String cpfPart){
-//        String id = "";
-//        String name = "";
-//        String cpf = "";
-//        if(!idPart.equals("empty")){
-//            id = "CAST(c.id as string) like %" + idPart + "%";
-//        }
-//        
-//        if(!namePart.equals("empty")){
-//            name = "and LOWER(c.name) like %"+ namePart + "%";
-//        }
-//        
-//        if(!cpfPart.equals("empty")){
-//            cpf = "and c.CPF like %" + cpfPart + "%";
-//        }
-//        
-//        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByAnyFilter(id, name, cpf);
-//        return obj;
-//    }
-       
-    
+        
 }

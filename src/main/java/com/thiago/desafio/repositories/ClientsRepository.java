@@ -3,11 +3,12 @@ package com.thiago.desafio.repositories;
 import com.thiago.desafio.database.Clients;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientsRepository extends JpaRepository <Clients, Integer>{
+public interface ClientsRepository extends JpaRepository <Clients, Integer>, JpaSpecificationExecutor<Clients>{
     
     @Query("SELECT c from Clients c where CAST(c.id as string) like %?1%")
     List<Clients> findByIdFilter(Integer idPart);
