@@ -67,7 +67,7 @@ public class Clients implements Serializable{
     public Clients() {
     }
 
-    public Clients(Integer code, String name, String CPF, String RG, String birthdate, String address, String complement, String district, Integer CEP, String city, String UF, String phone, String cellphone, String observation) {
+    public Clients(Integer id, String name, String CPF, String RG, String birthdate, String address, String complement, String district, Integer CEP, String city, String UF, String phone, String cellphone, String observation) {
         this.id = id;
         this.name = name;
         this.CPF = CPF;

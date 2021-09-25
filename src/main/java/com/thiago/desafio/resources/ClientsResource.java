@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
@@ -30,6 +31,7 @@ public class ClientsResource {
     @GetMapping
     public ResponseEntity<List<ArrayList<Clients>>> findAll(){
         ArrayList<Clients> obj = service.findAll();
+        System.out.println(obj);
         return ResponseEntity.ok().body(Arrays.asList(obj));
     }
     
@@ -57,4 +59,27 @@ public class ClientsResource {
         Clients newClient = service.update(id, obj);
         return ResponseEntity.accepted().body(newClient);
     }
+    
+    @GetMapping(value="/filter/{idPart}")
+    public ResponseEntity<List<ArrayList<Clients>>> findByIdFilter(@PathVariable("idPart") Integer idPart){
+        ArrayList<Clients> clients = service.findByIdFilter(idPart);
+        System.out.println(clients);
+        return ResponseEntity.ok().body(Arrays.asList(clients));
+    }
+    
+    @GetMapping(value="/filter/{idPart}/{namePart}")
+    public ResponseEntity<List<ArrayList<Clients>>> findByIdAndNameFilter(@PathVariable Integer idPart, @PathVariable String namePart){
+        ArrayList<Clients> clients = service.findByIdAndNameFilter(idPart, namePart.toLowerCase());
+        System.out.println(clients);
+        return ResponseEntity.ok().body(Arrays.asList(clients));
+    }
+    
+    @GetMapping(value="/filter/{idPart}/{namePart}/{cpf}")
+    public ResponseEntity<List<ArrayList<Clients>>> findByIdAndNameAndCpfFilter(@PathVariable Integer idPart, @PathVariable String namePart, @PathVariable String cpf){
+        ArrayList<Clients> clients = service.findByIdAndNameAndCpfFilter(idPart, namePart.toLowerCase(), cpf);
+        System.out.println(clients);
+        return ResponseEntity.ok().body(Arrays.asList(clients));
+    }
+    
+
 }

@@ -53,4 +53,21 @@ public class ClientsService {
         return repository.save(newClient);
     }
     
+    public ArrayList<Clients> findByIdFilter(Integer idPart){
+        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdFilter(idPart);
+        return obj;
+    }
+    
+    public ArrayList<Clients> findByIdAndNameFilter(Integer idPart, String namePart){
+        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameFilter(idPart, namePart);
+        return obj;
+    }
+    
+    public ArrayList<Clients> findByIdAndNameAndCpfFilter(Integer idPart, String namePart, String cpf){
+        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameAndCpfFilter(idPart, namePart, cpf);
+        return obj;
+    }
+      
+       
+    
 }
