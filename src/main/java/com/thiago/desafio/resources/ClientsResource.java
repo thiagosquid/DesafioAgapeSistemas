@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/clients")
+@CrossOrigin(*)
 public class ClientsResource {
     
     @Autowired
