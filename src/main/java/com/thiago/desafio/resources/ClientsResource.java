@@ -33,7 +33,7 @@ public class ClientsResource {
     @GetMapping
     public ResponseEntity<?> findAll(Pageable pageable){
         Page<Clients> obj = service.findAll(pageable);
-        return ResponseEntity.ok().body(Arrays.asList(obj));
+        return ResponseEntity.ok().body(obj);
     }
        
     @GetMapping(value = "/{id}")
