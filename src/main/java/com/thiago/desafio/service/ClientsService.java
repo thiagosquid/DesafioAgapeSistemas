@@ -37,9 +37,23 @@ public class ClientsService {
     }
     
     public Clients create(Clients obj){
-        obj.setId(null);
+        Clients newClient = new Clients();
+        newClient.setId(null);
+        newClient.setAddress(obj.getAddress());
+        newClient.setBirthdate(obj.getBirthdate());
+        newClient.setCEP(obj.getCEP());
+        newClient.setCPF(obj.getCPF());
+        newClient.setCellphone(obj.getCellphone());
+        newClient.setCity(obj.getCity());
+        newClient.setComplement(obj.getComplement());
+        newClient.setDistrict(obj.getDistrict());
+        newClient.setName(obj.getName());
+        newClient.setObservation(obj.getObservation());
+        newClient.setPhone(obj.getPhone());
+        newClient.setRG(obj.getRG());
+        newClient.setUF(obj.getUF());
         
-        return repository.save(obj);
+        return repository.save(newClient);
     }
     
     public Clients update(Integer id, Clients obj){

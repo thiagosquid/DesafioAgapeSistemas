@@ -11,14 +11,14 @@ public class UsersService {
     @Autowired
     private UsersRepository repository;
     
-    public String verify(Users obj){
+    public boolean verify(Users obj){
         boolean res = true;
         Users user = repository.getById(obj.getId());
         if(user == null || !user.getPassword().equals(obj.getPassword())){
             res = false;
         } 
                
-        return res ? "Logado" : "Identificação ou Senha de usuário invalida!";
+        return res;
     }       
     
 }
