@@ -30,6 +30,11 @@ public class ClientsService {
         Page<Clients> obj = repository.findAll(pageable);
         return obj;
     }
+    
+    public List<Clients> findAll2() {
+        List<Clients> obj = repository.findAll();
+        return obj;
+    }
                
     public void delete(Integer id){
         findById(id);

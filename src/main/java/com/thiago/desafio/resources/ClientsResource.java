@@ -3,11 +3,14 @@ package com.thiago.desafio.resources;
 
 import com.thiago.desafio.database.Clients;
 import com.thiago.desafio.service.ClientsService;
+import com.thiago.desafio.service.ReportService;
+import java.io.FileNotFoundException;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +32,10 @@ public class ClientsResource {
     
     @Autowired
     private ClientsService service;
+    
+    @Autowired
+    private ReportService serviceReport;
+    
         
     @GetMapping
     public ResponseEntity<?> findAll(Pageable pageable){
@@ -59,6 +66,12 @@ public class ClientsResource {
     public ResponseEntity<Clients> update(@PathVariable Integer id, @Valid @RequestBody Clients obj){
         Clients newClient = service.update(id, obj);
         return ResponseEntity.accepted().body(newClient);
+    }
+    
+    @GetMapping("/report/{format}")
+    public String generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException{
+                
+        return serviceReport.exportReport(format);
     }
     
     @GetMapping(value="/filter/{idPart}")
