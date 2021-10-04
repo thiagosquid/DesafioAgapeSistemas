@@ -3,9 +3,10 @@ package com.thiago.desafio.service;
 import com.thiago.desafio.database.Clients;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.List;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
@@ -13,6 +14,7 @@ import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ResourceUtils;
 
@@ -20,30 +22,47 @@ import org.springframework.util.ResourceUtils;
 @Service
 public class ReportService {
     
+    @Autowired
+    private ClientsService service;
     
-    private ClientsService repository;
-    
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException{
+    public String exportReport() throws FileNotFoundException, JRException{
         
-        String pathDestiny = "C:\\Users\\Thiago\\Desktop\\Relatórios";
+        String pathDestiny = "D:\\Área de Trabalho";
         
-        List<Clients> clients = repository.findAll2();
-        
+        List<Clients> clients = service.findAll2();
+                
         File file = ResourceUtils.getFile("classpath:clientsreport.jrxml");
         
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(clients);
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("createdBy", "Thiago");
+        Map parameters = new HashMap();
+        parameters.put("createdBy","Thiago");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        if(reportFormat.equalsIgnoreCase("html")){
-            JasperExportManager.exportReportToHtmlFile(jasperPrint,pathDestiny + "\\clientes.html");
-        }
-        if(reportFormat.equalsIgnoreCase("pdf")){
-            JasperExportManager.exportReportToPdfFile(jasperPrint, pathDestiny + "\\clientes.pdf");
-        }
+        
+        JasperExportManager.exportReportToPdfFile(jasperPrint, pathDestiny + "\\clientes.pdf");
+        
         
         return "Relatório gerado no caminho: " + pathDestiny;
     }
+    
+//    public String exportReportClient(Integer id) throws FileNotFoundException, JRException{
+//        
+//        String pathDestiny = "D:\\Área de Trabalho";
+//        
+//        List<Clients> client = (List<Clients>) service.findById(id);
+//                
+//        File file = ResourceUtils.getFile("classpath:clientsreport.jrxml");
+//        
+//        JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
+//        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(client);
+//        Map parameters = new HashMap();
+//        parameters.put("createdBy","Thiago");
+//        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+//        
+//        JasperExportManager.exportReportToPdfFile(jasperPrint, pathDestiny + "\\clientes.pdf");
+//        
+//        
+//        return "Relatório gerado no caminho: " + pathDestiny;
+//    }
     
 }

@@ -35,7 +35,7 @@ public class ClientsService {
         List<Clients> obj = repository.findAll();
         return obj;
     }
-               
+                   
     public void delete(Integer id){
         findById(id);
         repository.deleteById(id);

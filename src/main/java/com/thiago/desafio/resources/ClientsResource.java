@@ -42,6 +42,12 @@ public class ClientsResource {
         Page<Clients> obj = service.findAll(pageable);
         return ResponseEntity.ok().body(obj);
     }
+    
+    @GetMapping(value = "/all")
+    public ResponseEntity<List> findAll(){
+        List<Clients> obj = service.findAll2();
+        return ResponseEntity.ok().body(obj);
+    }
        
     @GetMapping(value = "/{id}")
     public ResponseEntity<Clients> findById(@PathVariable Integer id){
@@ -68,11 +74,17 @@ public class ClientsResource {
         return ResponseEntity.accepted().body(newClient);
     }
     
-    @GetMapping("/report/{format}")
-    public String generateReport(@PathVariable("format") String format) throws FileNotFoundException, JRException{
+    @GetMapping("/report")
+    public String generateReport() throws FileNotFoundException, JRException{
                 
-        return serviceReport.exportReport(format);
+        return serviceReport.exportReport();
     }
+    
+//    @GetMapping("/report/{id}")
+//    public String generateReportToClient(@PathVariable("id") Integer id) throws FileNotFoundException, JRException{
+//                
+//        return serviceReport.exportReportClient(id);
+//    }    
     
     @GetMapping(value="/filter/{idPart}")
     public ResponseEntity<List<ArrayList<Clients>>> findByIdFilter(@PathVariable("idPart") Integer idPart){

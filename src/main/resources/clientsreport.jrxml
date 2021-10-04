@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="clientsreport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4be5b139-5fe3-427e-8400-d92ca84b298e">
-	<property name="ireport.zoom" value="1.0"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
-	<queryString language="plsql">
-		<![CDATA[select * from clients;]]>
-	</queryString>
+	
 	<field name="id" class="java.lang.Integer"/>
-	<field name="cep" class="java.lang.Integer"/>
-	<field name="cpf" class="java.lang.String"/>
-	<field name="rg" class="java.lang.String"/>
-	<field name="uf" class="java.lang.String"/>
+	<field name="CEP" class="java.lang.Integer"/>
+	<field name="CPF" class="java.lang.String"/>
+	<field name="RG" class="java.lang.String"/>
+	<field name="UF" class="java.lang.String"/>
 	<field name="address" class="java.lang.String"/>
 	<field name="birthdate" class="java.lang.String"/>
 	<field name="cellphone" class="java.lang.String"/>
@@ -89,7 +84,7 @@
 				<textElement textAlignment="Center">
 					<font isBold="false"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{cpf}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{CPF}]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>
