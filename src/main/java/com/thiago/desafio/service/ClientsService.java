@@ -2,17 +2,11 @@ package com.thiago.desafio.service;
 
 import com.thiago.desafio.database.Clients;
 import com.thiago.desafio.repositories.ClientsRepository;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Predicate;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -78,31 +72,6 @@ public class ClientsService {
         newClient.setUF(obj.getUF());
         
         return repository.save(newClient);
-    }
-    
-    public ArrayList<Clients> findByIdFilter(Integer idPart){
-        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdFilter(idPart);
-        return obj;
-    }
-    
-    public List<Clients> findLike(String form){
-        return repository.findAll((Root<Clients> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) -> {
-            List<Predicate> predicates = new ArrayList<>();
-            if(form!=null){
-                predicates.add((Predicate) criteriaBuilder.like(root.get("name"), "%" + form + "%"));
-            }
-            return criteriaBuilder.and((javax.persistence.criteria.Predicate[]) predicates.toArray(new Predicate[predicates.size()]));
-        });
-    }
-    
-    public ArrayList<Clients> findByIdAndNameFilter(Integer idPart, String namePart){
-        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameFilter(idPart, namePart);
-        return obj;
-    }
-    
-    public ArrayList<Clients> findByIdAndNameAndCpfFilter(Integer idPart, String namePart, String cpf){
-        ArrayList<Clients> obj = (ArrayList<Clients>) repository.findByIdAndNameAndCpfFilter(idPart, namePart, cpf);
-        return obj;
     }
         
 }

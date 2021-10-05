@@ -6,8 +6,6 @@ import com.thiago.desafio.service.ClientsService;
 import com.thiago.desafio.service.ReportService;
 import java.io.FileNotFoundException;
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.validation.Valid;
 import net.sf.jasperreports.engine.JRException;
@@ -80,31 +78,13 @@ public class ClientsResource {
         return serviceReport.exportReport();
     }
     
-//    @GetMapping("/report/{id}")
-//    public String generateReportToClient(@PathVariable("id") Integer id) throws FileNotFoundException, JRException{
-//                
-//        return serviceReport.exportReportClient(id);
-//    }    
+    @GetMapping("/report/{id}")
+    public String generateReportToClient(@PathVariable("id") Integer id) throws FileNotFoundException, JRException{
+                
+        return serviceReport.exportReportClient(id);
+    }    
     
-    @GetMapping(value="/filter/{idPart}")
-    public ResponseEntity<List<ArrayList<Clients>>> findByIdFilter(@PathVariable("idPart") Integer idPart){
-        ArrayList<Clients> clients = service.findByIdFilter(idPart);
-        System.out.println(clients);
-        return ResponseEntity.ok().body(Arrays.asList(clients));
-    }
-    
-    @GetMapping(value="/filter/{idPart}/{namePart}")
-    public ResponseEntity<List<ArrayList<Clients>>> findByIdAndNameFilter(@PathVariable Integer idPart, @PathVariable String namePart){
-        ArrayList<Clients> clients = service.findByIdAndNameFilter(idPart, namePart.toLowerCase());
-        System.out.println(clients);
-        return ResponseEntity.ok().body(Arrays.asList(clients));
-    }
-    
-    @GetMapping(value="/filter/{idPart}/{namePart}/{cpf}")
-    public ResponseEntity<List<ArrayList<Clients>>> findByIdAndNameAndCpfFilter(@PathVariable Integer idPart, @PathVariable String namePart, @PathVariable String cpf){
-        ArrayList<Clients> clients = service.findByIdAndNameAndCpfFilter(idPart, namePart.toLowerCase(), cpf);
-        System.out.println(clients);
-        return ResponseEntity.ok().body(Arrays.asList(clients));
-    }
+   
+  
     
 }
